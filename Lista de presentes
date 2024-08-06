@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Presentes - Fraldas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            max-width: 300px;
+            margin: auto;
+        }
+        .item {
+            margin: 10px 0;
+        }
+        .button {
+            margin: 5px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .message {
+            margin-top: 20px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Presentes - Fraldas</h1>
+        <div class="item">
+            <label for="small">Fraldas P: <span id="small-count">0</span></label>
+            <button class="button" id="small" onclick="selectDiaper('small')">Selecionar</button>
+        </div>
+        <div class="item">
+            <label for="medium">Fraldas M: <span id="medium-count">0</span></label>
+            <button class="button" id="medium" onclick="selectDiaper('medium')">Selecionar</button>
+        </div>
+        <div class="item">
+            <label for="large">Fraldas G: <span id="large-count">0</span></label>
+            <button class="button" id="large" onclick="selectDiaper('large')">Selecionar</button>
+        </div>
+        <div class="message">
+            Cada presente carrega consigo um pouco do carinho e da emoção desse momento tão especial. Escolha o que mais combina com seu estilo e participe dessa celebração com um gesto de amor e cuidado.
+        </div>
+    </div>
+
+    <script>
+        const limits = {
+            small: 15,
+            medium: 20,
+            large: Infinity // Sem limite
+        };
+
+        const counts = {
+            small: 0,
+            medium: 0,
+            large: 0
+        };
+
+        function updateCounts() {
+            document.getElementById('small-count').innerText = counts.small;
+            document.getElementById('medium-count').innerText = counts.medium;
+            document.getElementById('large-count').innerText = counts.large;
+
+            if (counts.small >= limits.small) {
+                document.getElementById('small').disabled = true;
+                document.getElementById('small').innerText = 'Indisponível';
+            } else {
+                document.getElementById('small').disabled = false;
+                document.getElementById('small').innerText = 'Selecionar';
+            }
+
+            if (counts.medium >= limits.medium) {
+                document.getElementById('medium').disabled = true;
+                document.getElementById('medium').innerText = 'Indisponível';
+            } else {
+                document.getElementById('medium').disabled = false;
+                document.getElementById('medium').innerText = 'Selecionar';
+            }
+        }
+
+        function selectDiaper(size) {
+            if (counts[size] < limits[size]) {
+                counts[size]++;
+                updateCounts();
+            }
+        }
+
+        updateCounts();
+    </script>
+</body>
+</html>
